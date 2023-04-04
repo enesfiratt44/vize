@@ -1,0 +1,40 @@
+version: '3.1'
+	
+
+	services:
+	
+
+	  wordpress:
+	    image: wordpress
+	    restart: always
+	    ports:
+	      - 8080:80
+	    environment:
+	      WORDPRESS_DB_HOST: db
+	      WORDPRESS_DB_USER: enes
+	      WORDPRESS_DB_PASSWORD: 123
+	      WORDPRESS_DB_NAME: enesvize
+	    volumes:
+	      - wordpress:/var/www/html
+	
+
+	  db:
+	    image: mariadb
+	    restart: always
+	    environment:
+	      MARIADB_ROOT_PASSWORD: 123
+	   
+	  web:
+	  image: nginx
+	  volumes:
+	   - ./templates:/etc/nginx/templates
+	  ports:
+	   - "8080:80"
+	  environment:
+	   - NGINX_HOST=foobar.com
+	   - NGINX_PORT=80
+	
+
+	volumes:
+	  wordpress:
+	  db:
